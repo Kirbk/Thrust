@@ -54,6 +54,9 @@ public class Entity {
 
         changeX((float)(velocity.x * deltaT));
         changeY((float)(velocity.y * deltaT));
+
+        if (angle < 0)   angle = 359;
+        if (angle >= 360) angle = 0;
     }
 
     public Rectangle2D getBoundary()

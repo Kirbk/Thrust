@@ -55,6 +55,8 @@ public class World {
 
             if (!e.getHidden())
                 e.draw(gc, camPosition);
+
+            gc.strokeRect(e.getBoundary().getMinX() - camPosition.x, e.getBoundary().getMinY() - camPosition.y, e.getBoundary().getWidth(), e.getBoundary().getHeight());
         }
 
         gc.fillText("Entities: " + String.valueOf(getEntities().size()) + "(" + String.valueOf(drawCount) + ")", 10, 44);
