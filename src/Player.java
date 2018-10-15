@@ -1,5 +1,6 @@
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
+import utilities.Rec2D;
 import utilities.Vector2f;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class Player extends Entity {
 
     public Player(Image icon, Vector2f position, Vector2f size) {
         super(icon, position, size);
-        //Main.getWorld().setGravity(0.0f);
+        Main.getWorld().setGravity(0.0f);
         setDrawAngle(-45);
     }
 
@@ -64,8 +65,8 @@ public class Player extends Entity {
         if (shootCooldown > 0) shootCooldown--;
     }
 
-    @Override
-    public Rectangle2D getBoundary() {
-        return new Rectangle2D(getPosition().x + 10, getPosition().y - 10, getSize().x - 10, getSize().y + 10);
-    }
+//    @Override
+//    public Rec2D getBoundary() {
+//        return new Rec2D(getPosition().x + 10, getPosition().y - 10, getSize().x - 10, getSize().y + 10, getAngle());
+//    }
 }

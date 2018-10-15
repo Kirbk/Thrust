@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class World {
     public static float GRAVITY = 8f;
     public static float TERMINAL_VELOCITY = 500;
+    public boolean debug = false;
 
     private ArrayList<Entity> entities;
     private ArrayList<Entity> removeList;
@@ -33,6 +34,12 @@ public class World {
         removeList = new ArrayList<>();
     }
 
+    public World(boolean debug) {
+        entities = new ArrayList<>();
+        removeList = new ArrayList<>();
+        this.debug = debug;
+    }
+
     public void addEntity(Entity entity) {
         this.entities.add(entity);
     }
@@ -56,7 +63,31 @@ public class World {
             if (!e.getHidden())
                 e.draw(gc, camPosition);
 
-            gc.strokeRect(e.getBoundary().getMinX() - camPosition.x, e.getBoundary().getMinY() - camPosition.y, e.getBoundary().getWidth(), e.getBoundary().getHeight());
+            if (e instanceof Player && debug) {
+                gc.fillOval(e.getBoundary().getMinX() - camPosition.x, e.getBoundary().getMinY() - camPosition.y, 3, 3);
+                gc.fillOval(e.getBoundary().getMinX() - camPosition.x, e.getBoundary().getMaxY() - camPosition.y, 3, 3);
+                gc.fillOval(e.getBoundary().getMaxX() - camPosition.x, e.getBoundary().getMinY() - camPosition.y, 3, 3);
+                gc.fillOval(e.getBoundary().getMaxX() - camPosition.x, e.getBoundary().getMaxY() - camPosition.y, 3, 3);
+
+                double[] xs = e.getBoundary().xPoints, ys = e.getBoundary().yPoints;
+                for (int i = 0; i < 4; i++) {
+                    xs[i] -= camPosition.x;
+                    ys[i] -= camPosition.y;
+                }
+
+                double tempX = xs[3];
+                double tempY = ys[3];
+
+                xs[3] = xs[2];
+                xs[2] = tempX;
+
+                ys[3] = ys[2];
+                ys[2] = tempY;
+
+                gc.strokePolygon(xs, ys, 4);
+
+                gc.strokeRect(e.getPosition().x - camPosition.x, e.getPosition().y - camPosition.y, e.getSize().x, e.getSize().y);
+            }
         }
 
         gc.fillText("Entities: " + String.valueOf(getEntities().size()) + "(" + String.valueOf(drawCount) + ")", 10, 44);

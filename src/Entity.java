@@ -2,6 +2,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
+import utilities.Rec2D;
 import utilities.Vector2f;
 
 public class Entity {
@@ -55,19 +56,20 @@ public class Entity {
         changeX((float)(velocity.x * deltaT));
         changeY((float)(velocity.y * deltaT));
 
-        if (angle < 0)   angle = 359;
-        if (angle >= 360) angle = 0;
+        if (angle < 0)   angle += 360;
+        if (angle >= 360) angle -= 360;
     }
 
-    public Rectangle2D getBoundary()
+    public Rec2D getBoundary()
     {
-        return new Rectangle2D(getPosition().x, getPosition().y, getSize().x, getSize().y);
+        //return new Rectangle2D(getPosition().x, getPosition().y, getSize().x, getSize().y);
+        return new Rec2D(getPosition().x, getPosition().y, getSize().x, getSize().y, getAngle());
     }
 
-    public boolean intersects(Entity e)
-    {
-        return e.getBoundary().intersects(this.getBoundary());
-    }
+//    public boolean intersects(Entity e)
+//    {
+//        return e.getBoundary().intersects(this.getBoundary());
+//    }
 
     public void setRotationVelocity(double rotationVelocity) {
         this.rotationVelocity = rotationVelocity;
