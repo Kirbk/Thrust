@@ -1,7 +1,7 @@
 package utilities;
 
 public class Rec2D {
-    private double minX = Double.MAX_VALUE, minY = Double.MAX_VALUE, maxX = Double.MIN_VALUE, maxY = Double.MIN_VALUE;
+    private double minX, minY, maxX, maxY;
 
     public double[] xPoints, yPoints;
 
@@ -19,19 +19,6 @@ public class Rec2D {
 
         double cx = x + width / 2.0;
         double cy = y + height / 2.0;
-
-        double tempX = x - cx;
-        double tempY = y - cy;
-//
-//        minX = rotateX(tempX, tempY, angle) + cx;
-//        minY = rotateY(tempX, tempY, angle) + cy;
-//
-//        tempX = (x + width) - cx;
-//        tempY = (y + height) - cy;
-//
-//        maxX = rotateX(tempX, y - cy, angle) + cx;
-//        maxY = rotateY(x - cx, tempY, angle) + cy;
-
         Vector2d[] points = new Vector2d[4];
 
         int index = 0;
@@ -44,6 +31,11 @@ public class Rec2D {
                 index++;
             }
         }
+
+        maxX = points[0].x;
+        maxY = points[0].y;
+        minX = points[0].x;
+        minY = points[0].y;
 
         for (int i = 0; i < 4; i++) {
             if (points[i].x > maxX) maxX = points[i].x;
@@ -71,5 +63,10 @@ public class Rec2D {
 
     public double getMaxY() {
         return maxY;
+    }
+
+    public boolean intersects(Rec2D rec) {
+
+        return false;
     }
 }

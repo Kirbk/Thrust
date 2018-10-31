@@ -81,15 +81,13 @@ public class Main extends Application {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        world = new World(true);
+        world = new World();
         Player player = new Player(new Image("rocket.png"), new Vector2f(0, 0), new Vector2f(50, 50));
 
         world.addEntity(player);
 
         Entity entity = new Entity(new Image("rocket2-512.png"), new Vector2f(0, 0), new Vector2f(50, 50));
-        //world.addEntity(entity);
-
-        //world.addEntity(new Bullet(new Vector2f(100, 100), new Vector2f(5, 10), 0));
+        world.addEntity(entity);
 
         AnimationTimer loop = new AnimationTimer()
         {
